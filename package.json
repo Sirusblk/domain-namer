@@ -23,7 +23,7 @@
     "record",
     "hostname"
   ],
-  "author": "David McLaren",
+  "author": "David McLaren (https://github.com/sirusblk)",
   "license": "MIT",
   "nyc": {
     "extension": [
