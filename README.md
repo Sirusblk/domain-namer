@@ -1,5 +1,5 @@
 # Domain-Namer
-Generate and validate fully qualifed domain names and more!
+Generate and validate fully qualified domain names and more!
 
 ## Installation
 ```sh
