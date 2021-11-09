@@ -6,7 +6,7 @@ export const hostname: RegExp =
 export const topLevelDomain: RegExp =
   /^(?=.{2,63}$)[a-zA-Z]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/;
 export const fqdn: RegExp =
-  /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?[.]){1,26}[a-zA-Z]([a-zA-Z-]){0,61}[a-zA-Z]$/;
+  /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?[.]){0,26}[a-zA-Z]([a-zA-Z-]){0,61}[a-zA-Z]$/;
 
 /**
  * Generates a valid hostname with the following requirements:
