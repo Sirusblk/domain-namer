@@ -3,10 +3,13 @@ import RandExp from "randexp";
 
 export const hostname: RegExp =
   /^(?=.{1,63}$)[a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?$/;
+
 export const topLevelDomain: RegExp =
   /^(?=.{2,63}$)[a-zA-Z]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/;
+
+// (255 - 2 char TLD - 1 period) / 2 (1 char segment + 1 period) = 125.5
 export const fqdn: RegExp =
-  /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?[.]){0,26}[a-zA-Z]([a-zA-Z-]){0,61}[a-zA-Z]$/;
+  /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?\.){0,126}[a-zA-Z\d]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/;
 
 /**
  * Generates a valid hostname with the following requirements:

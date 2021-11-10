@@ -77,6 +77,25 @@ describe("FQDN RegEx", () => {
     const goodFqdn = new RandExp(/[a-zA-Z\d]{1}[.][a-zA-Z]{2}/).gen();
     assert.isTrue(fqdn.test(goodFqdn), goodFqdn);
   });
+  it("should accept 126 single char segments plus a two char tld", () => {
+    const goodFqdn: string = new RandExp(
+      /([a-zA-Z\d]{1}[.]){126}[a-zA-Z\d]{3}/
+    ).gen();
+    assert.equal(goodFqdn.length, 255);
+    assert.isTrue(fqdn.test(goodFqdn), goodFqdn);
+  });
+  it("should accept just a generated TLD x8", () => {
+    for (let i = 0; i < 8; i++) {
+      const tld = generateTopLevelDomain();
+      assert.isTrue(fqdn.test(tld), tld);
+    }
+  });
+  it("should accept a generated hostname and TLD combo x8", () => {
+    for (let i = 0; i < 8; i++) {
+      const goodFqdn: string = `${generateHostname()}.${generateTopLevelDomain()}`;
+      assert.isTrue(fqdn.test(goodFqdn), goodFqdn);
+    }
+  });
   it("should not accept anything 256 characters or longer", () => {
     const badFqdn = new RandExp(
       /([a-z\d][.]){1}([a-zA-Z\d]{63}[.]){3}[a-zA-Z]{63}/
