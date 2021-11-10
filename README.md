@@ -28,5 +28,3 @@ console.log(DomainPatterns.topLevelDomain.test("com"));
 ```sh
 npm run test
 ```
-
-**Note**: You will need to run `npm run build` to run the CommonJS and ECMAScript import tests.
