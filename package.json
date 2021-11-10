@@ -1,6 +1,6 @@
 {
   "name": "domain-namer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate and validate fully qualifed domain names and more",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
