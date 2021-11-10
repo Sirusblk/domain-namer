@@ -1,6 +1,6 @@
 {
   "name": "domain-namer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate and validate fully qualifed domain names and more",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,9 +8,15 @@
     "build": "tsc",
     "style": "eslint",
     "test": "mocha",
+    "pretest": "npm run build",
     "coverage": "nyc mocha",
     "validate": "npm run style && npm run test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sirusblk/domain-namer.git"
+  },
+  "homepage": "https://github.com/Sirusblk/domain-namer#readme",
   "engines": {
     "node": ">= 12.0.0"
   },

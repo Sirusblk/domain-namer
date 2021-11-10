@@ -1,15 +1,12 @@
 import fs from "fs";
 import RandExp from "randexp";
 
-export const hostname: RegExp =
-  /^(?=.{1,63}$)[a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?$/;
-
-export const topLevelDomain: RegExp =
-  /^(?=.{2,63}$)[a-zA-Z]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/;
-
-// (255 - 2 char TLD - 1 period) / 2 (1 char segment + 1 period) = 125.5
-export const fqdn: RegExp =
-  /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?\.){0,126}[a-zA-Z\d]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/;
+export const DomainPatterns: Record<string, RegExp> = {
+  hostname: /^(?=.{1,63}$)[a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?$/,
+  topLevelDomain: /^(?=.{2,63}$)[a-zA-Z]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/,
+  // (255 - 2 char TLD - 1 period) / 2 (1 char segment + 1 period) = 125.5
+  fqdn: /^(?=.{2,255}$)([a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?\.){0,126}[a-zA-Z\d]([a-zA-Z\d-]){0,61}[a-zA-Z\d]$/,
+};
 
 /**
  * Generates a valid hostname with the following requirements:
@@ -21,7 +18,7 @@ export const fqdn: RegExp =
  * @returns A valid hostname
  */
 export function generateHostname(): string {
-  return new RandExp(hostname).gen();
+  return new RandExp(DomainPatterns.hostname).gen();
 }
 
 /**
@@ -35,7 +32,7 @@ export function generateHostname(): string {
  * @returns A valid top level domain
  */
 export function generateTopLevelDomain(): string {
-  return new RandExp(topLevelDomain).gen();
+  return new RandExp(DomainPatterns.topLevelDomain).gen();
 }
 
 /**
@@ -56,7 +53,7 @@ export function generateTopLevelDomain(): string {
 export function generateFqdn(): string {
   // RandExp doesn't support look aheads enforcing length.
   // Have to trim manually preserving top level domain
-  const result: string = new RandExp(fqdn).gen();
+  const result: string = new RandExp(DomainPatterns.fqdn).gen();
   return result.substr(result.length - 255).replace(/^[-.]/, "");
 }
 
@@ -78,13 +75,13 @@ fs.readFile(
 );
 
 /**
- * Checks if provided candidate is a proper Top Level Domain. Checks against
+ * Checks if provided candidate is a recognized Top Level Domain. Checks against
  * list of IANNA Top Level Domains. String casing does not matter.
  *
  * @param candidate The top level domain candidate to check.
  * @returns True if a recognized Top Level Domain.
  */
-export function isActualTld(candidate: string): boolean {
+export function isKnownTld(candidate: string): boolean {
   for (const tld of actualTopLevelDomains) {
     if (tld.toLowerCase() === candidate.toLowerCase()) {
       return true;

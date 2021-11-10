@@ -12,15 +12,15 @@ bower install domain-namer --save
 
 ### Javascript
 ```javascript
-const fqdn = require("domain-namer").fqdn;
-console.log(fqdn.test("google.com"));
+const DomainPatterns = require("domain-namer").DomainPatterns;
+console.log(DomainPatterns.fqdn.test("google.com"));
 // Should print out 'true'
 ```
 
 ### Typescript
 ```typescript
-import { topLevelDomain } from "domain-namer";
-console.log(topLevelDomain.test("com"));
+import { DomainPatterns } from "domain-namer";
+console.log(DomainPatterns.topLevelDomain.test("com"));
 // Should print out 'true'
 ```
 
