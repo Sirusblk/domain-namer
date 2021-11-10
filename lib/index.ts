@@ -1,5 +1,5 @@
-import fs from "fs";
 import RandExp from "randexp";
+import { actualTopLevelDomains } from "./tlds";
 
 export const DomainPatterns: Record<string, RegExp> = {
   hostname: /^(?=.{1,63}$)[a-zA-Z\d]([a-zA-Z\d-]{0,61}[a-zA-Z\d])?$/,
@@ -57,23 +57,6 @@ export function generateFqdn(): string {
   return result.substr(result.length - 255).replace(/^[-.]/, "");
 }
 
-// Actual Top Level Domains: https://data.iana.org/TLD/tlds-alpha-by-domain.txt
-export let actualTopLevelDomains: string[] = [];
-fs.readFile(
-  "./tlds-alpha-by-domain.txt",
-  { encoding: "utf-8" },
-  (err, data) => {
-    if (err) {
-      console.error(err);
-    } else {
-      actualTopLevelDomains = data
-        .split("\n")
-        .slice(1)
-        .filter((tld: string) => tld !== "");
-    }
-  }
-);
-
 /**
  * Checks if provided candidate is a recognized Top Level Domain. Checks against
  * list of IANNA Top Level Domains. String casing does not matter.
@@ -89,3 +72,5 @@ export function isKnownTld(candidate: string): boolean {
   }
   return false;
 }
+
+export { actualTopLevelDomains } from "./tlds";
